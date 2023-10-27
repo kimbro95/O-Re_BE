@@ -1,16 +1,17 @@
 import express from "express";
-import { port } from "./config/index.js";
+import config from "./config/index.js";
 import loader from "./loaders/index.js";
 
 const startServer = async () => {
   const app = express();
+  const PORT = config.port;
 
   await loader(app);
 
-  app.listen(port, (error) => {
+  app.listen(PORT, (error) => {
     try {
       if (error) throw error;
-      console.log(`> ✨Ready on http://localhost:${port}`);
+      console.log(`> ✨Ready on http://localhost:${PORT}`);
     } catch (error) {
       console.log("Error Server");
       process.exit(1);
