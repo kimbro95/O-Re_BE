@@ -5,7 +5,7 @@ import config from "../../config/index.js";
 import { dateFormat } from "./date.js";
 
 /**
- * OPEN API를 통해 불러온 박스오피스 데이터 JSON
+ * OPEN API를 통해 불러온 박스오피스 데이터 JSON 파일로 만들기
  */
 export const writeBoxOfficeJson = async () => {
   const boxOfficeData = await getBoxOffice();
@@ -67,8 +67,10 @@ export const getMoviesInfo = async (moive) => {
     ).json();
 
     return {
-      rank: moive.rank,
+      rank: parseInt(moive.rank),
       title: moive.movieNm,
+      nation: response?.Data?.[0]?.Result?.[0]?.nation || "",
+      prodYear: parseInt(response?.Data?.[0]?.Result?.[0]?.prodYear),
       poster: response?.Data?.[0]?.Result?.[0]?.posters.split("|")[0] || "",
     };
   } catch (error) {
